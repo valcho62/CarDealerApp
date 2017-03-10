@@ -11,7 +11,26 @@ namespace CarDealerApp.Controllers
     {
         private CarDealerContext db = new CarDealerContext();
         // GET: Supliers
-        public ActionResult Index(string suppType)
+        public ActionResult Index()
+        {
+           
+           
+             var   preModel = this.db.Suppliers.ToList();
+            
+
+            var model = new List<SuppliersVM>();
+            foreach (var pre in preModel)
+            {
+                var temp = new SuppliersVM();
+                temp.Id = pre.Id;
+                temp.Name = pre.Name;
+                temp.NumberOfParts = pre.Parts.Count;
+                model.Add(temp);
+            }
+
+            return View(model);
+        }
+        public ActionResult Filter(string suppType)
         {
             var preModel = new List<CarDealer.Models.Supplier>();
             if (suppType == "Local")

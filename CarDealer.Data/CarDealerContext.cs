@@ -20,6 +20,6 @@ namespace CarDealer.Data
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Sale> Sales { get; set; }
 
-    }
+        }
 
 }

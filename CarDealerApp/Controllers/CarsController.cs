@@ -9,6 +9,8 @@ namespace CarDealerApp.Controllers
     {
         private CarDealerContext db = new CarDealerContext();
         // GET: Cars
+        [HttpGet]
+        [Route ("cars/{id}")]
         public ActionResult Index (string id)
         {
             if (id != null)
@@ -21,6 +23,12 @@ namespace CarDealerApp.Controllers
                 return View(db.Cars.OrderBy(x => x.Model)
                        .ThenByDescending(x => x.TravelledDistance).ToList());
             }
+        }
+        [HttpGet]
+        [Route("cars/{id}/parts")]
+        public ActionResult Parts(string id)
+        {
+           return View(Service.CarsService.MakeCarsViewModel(db,id));
         }
     }
 }

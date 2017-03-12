@@ -16,6 +16,7 @@ namespace CarDealerApp.Controllers
         private CarDealerContext db = new CarDealerContext();
 
         // GET: Customers
+        [Route("customers/all/{id}")]
         public ActionResult All(string id)
         {
             if (id == "ascending")
@@ -30,18 +31,12 @@ namespace CarDealerApp.Controllers
         }
 
         // GET: Customers/Details/5
-        public ActionResult Details(int? id)
+        [HttpGet]
+        [Route("customers/{id}")]
+        public ActionResult Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(customer);
+           
+            return View(Service.CustomerService.CustomerWithSales(db,id));
         }
 
         // GET: Customers/Create

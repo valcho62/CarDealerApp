@@ -30,6 +30,8 @@ namespace CarDealerApp.Controllers
 
             return View(model);
         }
+        [HttpGet]
+        [Route("supliers/{suppType}")]
         public ActionResult Filter(string suppType)
         {
             var preModel = new List<CarDealer.Models.Supplier>();

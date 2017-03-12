@@ -12,8 +12,29 @@ namespace CarDealerApp
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.MapMvcAttributeRoutes();
+            //routes.MapMvcAttributeRoutes();
 
+
+            routes.MapRoute(
+                name: "Customer All",
+                url: "Customers/All/{id}",
+                defaults: new { controller = "Customers", action = "All", id = UrlParameter.Optional }
+                );
+            routes.MapRoute(
+            name: "Customer Sales",
+            url: "Customers/{id}",
+            defaults: new { controller = "Customers", action = "Details", id = UrlParameter.Optional }
+        );
+            routes.MapRoute(
+             name: "Cars with parts",
+             url: "Cars/{id}/parts",
+             defaults: new { controller = "Cars", action = "Parts" }
+         );
+            routes.MapRoute(
+              name: "Suppliers",
+              url: "supliers/{id}",
+              defaults: new { controller = "Supliers", action = "Filter" }
+          );
             routes.MapRoute(
               name: "Cars",
               url: "Cars/{id}",
@@ -24,7 +45,7 @@ namespace CarDealerApp
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-           
+
 
 
         }

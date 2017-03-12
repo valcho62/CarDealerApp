@@ -23,15 +23,17 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Customers", "All", "Customers")</li>
                     <li>@Html.ActionLink("Cars", "Index", "Cars")</li>
-                    <li>
-                        @{
-                            var options = new List<string>() {"Importers","Local"};
-                            Html.DropDownList("Suppliers",options);
-                    }
-                </li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-            </ul>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Suppliers<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Local", "Filter","Supliers", new {suppType = "Local"},null)</li>
+                            <li>@Html.ActionLink("Importers", "Filter", "Supliers", new { suppType = "Importers" }, null)</li>
+
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
 
             </div>
         </div>

@@ -11,17 +11,14 @@ namespace CarDealerApp.Service
     {
         public static CustomerSalesVM CustomerWithSales(CarDealerContext cdc, int id)
         {
-            if (id == null)
-            {
-                return null;
-            }
+            
             Customer customer = cdc.Customers.Find(id);
             var model = new CustomerSalesVM();
 
             model.Name = customer.Name;
             model.BoughtCars = customer.Sales.Count;
             var sales = customer.Sales.ToList();
-            var moneySpent = customer.Sales.Sum(car => car.Car.Parts)
+            double moneySpent = 0.0;
 
             foreach (var sale in sales)
             {

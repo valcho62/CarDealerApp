@@ -16,6 +16,11 @@ namespace CarDealerApp
 
 
             routes.MapRoute(
+          name: "Sales by Id",
+          url: "Sales/{id}",
+          defaults: new { controller = "Sales", action = "Details"}
+      );
+            routes.MapRoute(
                 name: "Customer All",
                 url: "Customers/All/{id}",
                 defaults: new { controller = "Customers", action = "All", id = UrlParameter.Optional }

@@ -140,6 +140,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\CarsService.cs" />
     <Compile Include="Service\CustomerService.cs" />
+    <Compile Include="Service\SalesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -185,10 +186,11 @@
     <Content Include="Views\Supliers\Index.cshtml" />
     <Content Include="Views\Supliers\Filter.cshtml" />
     <Content Include="Views\Cars\Parts.cshtml" />
+    <Content Include="Views\Sales\Index.cshtml" />
+    <Content Include="Views\Sales\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Sales\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

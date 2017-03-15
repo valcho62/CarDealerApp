@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CarDealer.Data;
+using CarDealer.Models.ViewModels;
+using CarDealerApp.Service;
 
 namespace CarDealerApp.Controllers
 {
@@ -13,7 +15,16 @@ namespace CarDealerApp.Controllers
         // GET: Sales
         public ActionResult Index()
         {
-            return View();
+           
+            return View(SalesService.MakeAllSalesModel(db));
+        }
+        public ActionResult Details(string id)
+        {
+            if (id == "discount")
+            {
+                return View(SalesService.MakeDiscountedSalesModel(db));
+            }
+            return View(SalesService.MakeSalesWithIdModel(db,id));
         }
     }
 }

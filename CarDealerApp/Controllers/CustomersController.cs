@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using CarDealer.Data;
 using CarDealer.Models;
+using CarDealer.Models.BindingModels;
+using CarDealerApp.Service;
 
 namespace CarDealerApp.Controllers
 {
@@ -16,6 +18,7 @@ namespace CarDealerApp.Controllers
         private CarDealerContext db = new CarDealerContext();
 
         // GET: Customers
+        [Route("customers/all")]
         [Route("customers/all/{id}")]
         public ActionResult All(string id)
         {
@@ -30,39 +33,45 @@ namespace CarDealerApp.Controllers
             
         }
 
+        // GET: Customers/Create
+        [HttpGet]
+        [Route("customers/create")]
+        public ActionResult Create()
+        {
+            return View();
+        }
         // GET: Customers/Details/5
         [HttpGet]
-        [Route("customers/{id}")]
+        [Route("customers/details/{id}")]
         public ActionResult Details(int id)
         {
            
             return View(Service.CustomerService.CustomerWithSales(db,id));
         }
 
-        // GET: Customers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+       
 
         // POST: Customers/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,BirthDate,IsYoungDriver")] Customer customer)
+        [Route("customers/create")]
+        public ActionResult Create([Bind(Include = "Name,BirthDate")] AddCustomerBM customer)
         {
             if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
-                db.SaveChanges();
-                return RedirectToAction("All");
+               Service.CustomerService.AddCustomer(customer,this.db);
+                return this.RedirectToAction("All");
             }
 
             return View(customer);
         }
 
         // GET: Customers/Edit/5
+        [HttpGet]
+        [Route ("customers/edit")]
+        [Route ("customers/edit/{id}")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,12 +91,12 @@ namespace CarDealerApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,BirthDate,IsYoungDriver")] Customer customer)
+        [Route("customers/edit/{id}")]
+        public ActionResult Edit([Bind(Include = "Id,Name,BirthDate")] EditCustomerBM customer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
+               CustomerService.EditCustomer(customer,this.db);
                 return RedirectToAction("All");
             }
             return View(customer);

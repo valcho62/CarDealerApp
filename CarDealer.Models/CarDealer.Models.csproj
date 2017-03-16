@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingModels\AddCustomerBM.cs" />
+    <Compile Include="BindingModels\EditCustomerBM.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Part.cs" />

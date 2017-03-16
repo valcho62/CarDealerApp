@@ -12,7 +12,7 @@ namespace CarDealerApp
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            //routes.MapMvcAttributeRoutes();
+            routes.MapMvcAttributeRoutes();
 
 
             routes.MapRoute(
@@ -20,16 +20,7 @@ namespace CarDealerApp
           url: "Sales/{id}",
           defaults: new { controller = "Sales", action = "Details"}
       );
-            routes.MapRoute(
-                name: "Customer All",
-                url: "Customers/All/{id}",
-                defaults: new { controller = "Customers", action = "All", id = UrlParameter.Optional }
-                );
-            routes.MapRoute(
-            name: "Customer Sales",
-            url: "Customers/{id}",
-            defaults: new { controller = "Customers", action = "Details", id = UrlParameter.Optional }
-        );
+            
             routes.MapRoute(
              name: "Cars with parts",
              url: "Cars/{id}/parts",

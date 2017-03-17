@@ -33,6 +33,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.TravelledDistance)
         </td>
+        <td>
+            @Html.ActionLink("Add part", "AddPart", new { id = item.Id }) |
+           
+        </td>
        
     </tr>
 }

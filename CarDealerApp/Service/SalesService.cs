@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using CarDealer.Data;
 using CarDealer.Models.ViewModels;
+using Microsoft.Ajax.Utilities;
 
 namespace CarDealerApp.Service
 {
-    public class SalesService
+    public class SalesService : Service
     {
-        public static ICollection<AllSalesVM> MakeAllSalesModel(CarDealerContext db)
+        public  ICollection<AllSalesVM> MakeAllSalesModel()
         {
-            var allSales = db.Sales.ToList();
+            var allSales =Contex.Sales.ToList();
             var model = new List<AllSalesVM>();
             foreach (var sale in allSales)
             {
@@ -26,10 +27,10 @@ namespace CarDealerApp.Service
 
             return model;
         }
-        public static SaleWithIdVM MakeSalesWithIdModel(CarDealerContext db,string id)
+        public  SaleWithIdVM MakeSalesWithIdModel(string id)
         {
             var idToSearch = int.Parse(id);
-            var sale = db.Sales.Find(idToSearch);
+            var sale =Contex.Sales.Find(idToSearch);
             var model = new SaleWithIdVM();
             
                 
@@ -40,9 +41,9 @@ namespace CarDealerApp.Service
 
             return model;
         }
-        public static ICollection<AllSalesVM> MakeDiscountedSalesModel(CarDealerContext db)
+        public  ICollection<AllSalesVM> MakeDiscountedSalesModel()
         {
-            var allSales = db.Sales.Where(x => x.Discount > 0).ToList();
+            var allSales = Contex.Sales.Where(x => x.Discount > 0).ToList();
             var model = new List<AllSalesVM>();
             foreach (var sale in allSales)
             {

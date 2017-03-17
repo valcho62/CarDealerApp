@@ -11,20 +11,25 @@ namespace CarDealerApp.Controllers
 {
     public class SalesController : Controller
     {
-        private CarDealerContext db = new CarDealerContext();
+        private SalesService service;
+
+        public SalesController()
+        {
+            this.service = new SalesService();
+        }
         // GET: Sales
         public ActionResult Index()
         {
            
-            return View(SalesService.MakeAllSalesModel(db));
+            return View(this.service.MakeAllSalesModel());
         }
         public ActionResult Details(string id)
         {
             if (id == "discount")
             {
-                return View(SalesService.MakeDiscountedSalesModel(db));
+                return View(this.service.MakeDiscountedSalesModel());
             }
-            return View(SalesService.MakeSalesWithIdModel(db,id));
+            return View(this.service.MakeSalesWithIdModel(id));
         }
     }
 }

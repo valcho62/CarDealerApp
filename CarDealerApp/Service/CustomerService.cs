@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -11,12 +12,26 @@ using CarDealer.Models.ViewModels;
 
 namespace CarDealerApp.Service
 {
-    public class CustomerService
+    public class CustomerService : Service
     {
-        public static CustomerSalesVM CustomerWithSales(CarDealerContext cdc, int id)
+        public IEnumerable<Customer> MakeAll(string id)
+        {
+            var result = new List<Customer>();
+            if (id == "ascending")
+            {
+                result =Contex.Customers.OrderBy(x => x.BirthDate).ToList();
+            }
+            else
+            {
+                result= Contex.Customers.OrderByDescending(x => x.BirthDate).ToList();
+            }
+
+            return result;
+        }
+        public  CustomerSalesVM CustomerWithSales(int id)
         {
             
-            Customer customer = cdc.Customers.Find(id);
+            Customer customer = Contex.Customers.Find(id);
             var model = new CustomerSalesVM();
 
             model.Name = customer.Name;
@@ -33,7 +48,7 @@ namespace CarDealerApp.Service
             return model;
         }
 
-        public static void AddCustomer(AddCustomerBM customerBM, CarDealerContext db)
+        public  void AddCustomer(AddCustomerBM customerBM)
         {
             var customer = Mapper.Map<AddCustomerBM, Customer>(customerBM);
             var age = DateTime.Today.Year - customerBM.BirthDate.Year;
@@ -45,13 +60,13 @@ namespace CarDealerApp.Service
             {
                 customer.IsYoungDriver = true;
             }
-            db.Customers.Add(customer);
-            db.SaveChanges();
+            Contex.Customers.Add(customer);
+            Contex.SaveChanges();
             
         }
-        public static void EditCustomer(EditCustomerBM customerBM, CarDealerContext db)
+        public  void EditCustomer(EditCustomerBM customerBM)
         {
-            var customer = db.Customers.Find(customerBM.Id);
+            var customer = Contex.Customers.Find(customerBM.Id);
             var age = DateTime.Today.Year - customerBM.BirthDate.Year;
             if (age > 18)
             {
@@ -63,8 +78,8 @@ namespace CarDealerApp.Service
             }
             customer.Name = customerBM.Name;
             customer.BirthDate = customerBM.BirthDate;
-            db.Entry(customer).State = EntityState.Modified;
-            db.SaveChanges();
+            Contex.Entry(customer).State = EntityState.Modified;
+            Contex.SaveChanges();
 
         }
     }

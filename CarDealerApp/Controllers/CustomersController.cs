@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using CarDealer.Data;
 using CarDealer.Models;
 using CarDealer.Models.BindingModels;
@@ -15,22 +16,20 @@ namespace CarDealerApp.Controllers
 {
     public class CustomersController : Controller
     {
-        private CarDealerContext db = new CarDealerContext();
+        private CustomerService service;
+
+        public CustomersController()
+        {
+            this.service = new CustomerService();
+        }
 
         // GET: Customers
         [Route("customers/all")]
         [Route("customers/all/{id}")]
         public ActionResult All(string id)
         {
-            if (id == "ascending")
-            {
-                return this.View(db.Customers.OrderBy(x => x.BirthDate).ToList());
-            }
-            else
-            {
-                return this.View(db.Customers.OrderByDescending(x => x.BirthDate).ToList());
-            }
-            
+            return View(this.service.MakeAll(id));
+
         }
 
         // GET: Customers/Create
@@ -46,7 +45,7 @@ namespace CarDealerApp.Controllers
         public ActionResult Details(int id)
         {
            
-            return View(Service.CustomerService.CustomerWithSales(db,id));
+            return View(this.service.CustomerWithSales(id));
         }
 
        
@@ -61,7 +60,7 @@ namespace CarDealerApp.Controllers
         {
             if (ModelState.IsValid)
             {
-               Service.CustomerService.AddCustomer(customer,this.db);
+               this.service.AddCustomer(customer);
                 return this.RedirectToAction("All");
             }
 
@@ -78,12 +77,13 @@ namespace CarDealerApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            Customer customer = this.service.Contex.Customers.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            var custToEdit = Mapper.Map<Customer,EditCustomerBM>(customer);
+            return View(custToEdit);
         }
 
         // POST: Customers/Edit/5
@@ -92,11 +92,12 @@ namespace CarDealerApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("customers/edit/{id}")]
+        [Route("customers/edit")]
         public ActionResult Edit([Bind(Include = "Id,Name,BirthDate")] EditCustomerBM customer)
         {
             if (ModelState.IsValid)
             {
-               CustomerService.EditCustomer(customer,this.db);
+               this.service.EditCustomer(customer);
                 return RedirectToAction("All");
             }
             return View(customer);
@@ -109,7 +110,7 @@ namespace CarDealerApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customers.Find(id);
+            Customer customer = this.service.Contex.Customers.Find(id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -122,9 +123,9 @@ namespace CarDealerApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
-            db.SaveChanges();
+            Customer customer = this.service.Contex.Customers.Find(id);
+            service.Contex.Customers.Remove(customer);
+            service.Contex.SaveChanges();
             return RedirectToAction("All");
         }
 
@@ -132,7 +133,7 @@ namespace CarDealerApp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this.service.Contex.Dispose();
             }
             base.Dispose(disposing);
         }

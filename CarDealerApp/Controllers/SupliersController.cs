@@ -4,18 +4,24 @@ using System.Linq;
 using System.Web.Mvc;
 using CarDealer.Data;
 using CarDealerApp.Models;
+using CarDealerApp.Service;
 
 namespace CarDealerApp.Controllers
 {
     public class SupliersController : Controller
     {
-        private CarDealerContext db = new CarDealerContext();
+        private SupliersService service;
+
+        public SupliersController()
+        {
+            this.service = new SupliersService();
+        }
         // GET: Supliers
         public ActionResult Index()
         {
            
            
-             var   preModel = this.db.Suppliers.ToList();
+             var   preModel = this.service.Contex.Suppliers.ToList();
             
 
             var model = new List<SuppliersVM>();
@@ -37,11 +43,11 @@ namespace CarDealerApp.Controllers
             var preModel = new List<CarDealer.Models.Supplier>();
             if (suppType == "Local")
             {
-                preModel = this.db.Suppliers.Where(x => x.IsImporter == false).ToList();
-            }
-            else
-            {
-                preModel = this.db.Suppliers.Where(x => x.IsImporter == true).ToList();
+                preModel = this.service.Contex.Suppliers.Where(x => x.IsImporter == false).ToList();
+            }                   
+            else                
+            {                   
+                preModel = this.service.Contex.Suppliers.Where(x => x.IsImporter == true).ToList();
             }
 
             var model = new List<SuppliersVM>();

@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingModels\AddCarBM.cs" />
     <Compile Include="BindingModels\AddCustomerBM.cs" />
     <Compile Include="BindingModels\EditCustomerBM.cs" />
     <Compile Include="Car.cs" />
@@ -48,10 +49,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sale.cs" />
     <Compile Include="Supplier.cs" />
+    <Compile Include="ViewModels\AddCarVM.cs" />
     <Compile Include="ViewModels\AddPartVM.cs" />
     <Compile Include="ViewModels\AllSalesVM.cs" />
     <Compile Include="ViewModels\CarsWithPartsVM.cs" />
     <Compile Include="ViewModels\CustomerSalesVM.cs" />
+    <Compile Include="ViewModels\EditPartVM.cs" />
     <Compile Include="ViewModels\PartsInCarsVM.cs" />
     <Compile Include="ViewModels\SaleWithIdVM.cs" />
   </ItemGroup>

@@ -202,6 +202,7 @@
     <Content Include="Views\Parts\Details.cshtml" />
     <Content Include="Views\Parts\Edit.cshtml" />
     <Content Include="Views\Parts\Index.cshtml" />
+    <Content Include="Views\Cars\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

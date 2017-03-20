@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using CarDealer.Data;
 using CarDealer.Models;
+using CarDealer.Models.BindingModels;
 using CarDealer.Models.ViewModels;
 
 namespace CarDealerApp.Service
@@ -41,6 +43,7 @@ namespace CarDealerApp.Service
                     partModel.Price = part.Price;
                     tempPart.Add(partModel);
                 }
+
                 carModel.Make = car.Make;
                 carModel.Model = car.Model;
                 carModel.TravelledDistance = car.TravelledDistance;
@@ -50,6 +53,13 @@ namespace CarDealerApp.Service
             }
 
             return result;
+        }
+
+        public void AddCar(AddCarBM car)
+        {
+            var carToAdd = Mapper.Map<AddCarBM, Car>(car);
+            Contex.Cars.Add(carToAdd);
+            Contex.SaveChanges();
         }
     }
 }

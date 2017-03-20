@@ -9,6 +9,7 @@ using AutoMapper;
 using CarDealer.Models;
 using CarDealer.Models.BindingModels;
 using CarDealer.Models.ViewModels;
+using CarDealerApp.Service;
 
 namespace CarDealerApp
 {
@@ -33,10 +34,22 @@ namespace CarDealerApp
                     cfg.CreateMap<EditCustomerBM, Customer>();
                     cfg.CreateMap<Customer,EditCustomerBM>();
                     cfg.CreateMap<AddPartVM, Part>()
-                        .ForMember(vm => vm.Supplier,
-                            cfg1 => cfg1.MapFrom(part => part.SupplierId));
+                        .ForMember(mem => mem.Supplier,opt => opt.MapFrom(src => ConvertIntToClass(src)));
+                    cfg.CreateMap<Part, EditPartVM>();
+                    cfg.CreateMap<EditPartVM,Part>();
+                    cfg.CreateMap<AddCarBM,Car>();
+
                 }
                     );
+
+        }
+
+        private Supplier ConvertIntToClass(AddPartVM src)
+        {
+            var service = new PartsService();
+            var suplier = service.Contex.Suppliers.Find(src.SupplierId);
+            service.Contex.Dispose();
+            return suplier;
         }
     }
 }

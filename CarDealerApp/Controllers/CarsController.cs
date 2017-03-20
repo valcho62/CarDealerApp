@@ -39,12 +39,17 @@ namespace CarDealerApp.Controllers
         [Route("cars/add")]
         public ActionResult Add()
         {
+            var parts = this.service.Contex.Parts.Select(c => new {
+                PartID = c.Id,
+                PartName = c.Name
+            }).ToList();
+            ViewBag.Parts = new MultiSelectList(parts, "PartID", "PartName");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("cars/add")]
-        public ActionResult Add([Bind(Include = "Make,Model,TravelledDistance")] AddCarBM car)
+        public ActionResult Add([Bind(Include = "Make,Model,TravelledDistance,Parts")] AddCarBM car)
         {
             if (ModelState.IsValid)
             {

@@ -37,11 +37,25 @@ namespace CarDealerApp
                         .ForMember(mem => mem.Supplier,opt => opt.MapFrom(src => ConvertIntToClass(src)));
                     cfg.CreateMap<Part, EditPartVM>();
                     cfg.CreateMap<EditPartVM,Part>();
-                    cfg.CreateMap<AddCarBM,Car>();
+                    cfg.CreateMap<AddCarBM,Car>()
+                    .ForMember(mem => mem.Parts,opt => opt.MapFrom(src => ConvertAreaToParts(src)));
 
                 }
                     );
 
+        }
+
+        private ICollection<Part> ConvertAreaToParts(AddCarBM src)
+        {
+            var service = new PartsService();
+            var result = new List<Part>();
+            foreach (var itemId in src.Parts)
+            {
+                var tempPart = service.Contex.Parts.Find(int.Parse(itemId));
+                result.Add(tempPart);
+            }
+            service.Contex.Dispose();
+            return result;
         }
 
         private Supplier ConvertIntToClass(AddPartVM src)

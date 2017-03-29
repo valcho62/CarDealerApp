@@ -31,5 +31,18 @@ namespace CarDealerApp.Controllers
             }
             return View(this.service.MakeSalesWithIdModel(id));
         }
+        [HttpGet]
+        [Route("sales/add")]
+        public ActionResult Add()
+        {
+
+            var session = this.Request.Cookies.Get("sessionId");
+            if (AuthenticationManager.IsAuthenticated(session.Value))
+            {
+                var vm = this.service.MakeAddSaleVM();
+                return View(vm);
+            }
+            return RedirectToAction("Login", "Users");
+        }
     }
 }

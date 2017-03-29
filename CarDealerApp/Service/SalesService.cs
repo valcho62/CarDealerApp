@@ -1,7 +1,10 @@
 ﻿
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using CarDealer.Data;
+using CarDealer.Models;
 using CarDealer.Models.ViewModels;
 using Microsoft.Ajax.Utilities;
 
@@ -58,6 +61,22 @@ namespace CarDealerApp.Service
             }
 
             return model;
+        }
+
+        public AddSaleVM MakeAddSaleVM()
+        {
+            var vm = new AddSaleVM();
+            IEnumerable<Car> cars = Contex.Cars;
+            IEnumerable<Customer> customers = Contex.Customers;
+            vm.CarVms = Mapper.Map<IEnumerable<Car>, IEnumerable<AddSaleCarVM>>(cars);
+            vm.CustomerVms = Mapper.Map<IEnumerable<Customer>, IEnumerable<AddSaleCustomerVM>>(customers);
+            var discounts = new List<int>();
+            for (int i = 5; i < 55; i+=5)
+            {
+                discounts.Add(i);
+            }
+            vm.Discounts = discounts;
+            return vm;
         }
     }
 }

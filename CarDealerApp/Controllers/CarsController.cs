@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using CarDealer.Data;
 using CarDealer.Models.BindingModels;
 using CarDealerApp.Service;
+using Microsoft.Ajax.Utilities;
 
 namespace CarDealerApp.Controllers
 {
@@ -39,13 +40,19 @@ namespace CarDealerApp.Controllers
         [Route("cars/add")]
         public ActionResult Add()
         {
-            var parts = this.service.Contex.Parts.Select(c => new {
-                PartID = c.Id,
-                PartName = c.Name
-            }).ToList();
-            ViewBag.Parts = new MultiSelectList(parts, "PartID", "PartName");
-            return View();
-        }
+            var session = this.Request.Cookies.Get("sessionId");
+            if (AuthenticationManager.IsAuthenticated(session.Value))
+            {
+                var parts = this.service.Contex.Parts.Select(c => new
+                {
+                    PartID = c.Id,
+                    PartName = c.Name
+                }).ToList();
+                ViewBag.Parts = new MultiSelectList(parts, "PartID", "PartName");
+                return View(); 
+            }
+            return RedirectToAction("Login","Users");
+   ;     }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("cars/add")]

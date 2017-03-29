@@ -39,9 +39,13 @@ namespace CarDealerApp
                     cfg.CreateMap<EditPartVM,Part>();
                     cfg.CreateMap<AddCarBM,Car>()
                     .ForMember(mem => mem.Parts,opt => opt.MapFrom(src => ConvertAreaToParts(src)));
+                    cfg.CreateMap<AddUserBM, User>();
+                    cfg.CreateMap<Car, AddSaleCarVM>();
+                    cfg.CreateMap<Customer, AddSaleCustomerVM>();
 
                 }
                     );
+
 
         }
 

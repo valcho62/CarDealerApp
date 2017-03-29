@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+@using CarDealerApp.Service
 <html>
 <head>
     <meta charset="utf-8" />
@@ -35,6 +36,31 @@
                     <li>@Html.ActionLink("Parts", "Index", "Parts")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <ul class="nav navbar-nav navbar-right">
+
+                        @{
+                            var cookie = this.Request.Cookies.Get("sessionId");
+                            if (cookie != null && CarDealerApp.Service.AuthenticationManager.IsAuthenticated(cookie.Value))
+                            {
+                                <li>@ViewBag.Username</li>
+
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="/users/register/">Register</a>
+                                </li>
+                                <li>
+                                    <a href="/users/login/">Login</a>
+                                </li>
+                            }
+
+
+                        }
+                        
+                        <li>@Html.ActionLink("Logout", "Logout", "Users")</li>
+                        
+                    </ul>
                 </ul>
 
             </div>

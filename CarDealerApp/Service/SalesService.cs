@@ -5,6 +5,7 @@ using System.Linq;
 using AutoMapper;
 using CarDealer.Data;
 using CarDealer.Models;
+using CarDealer.Models.BindingModels;
 using CarDealer.Models.ViewModels;
 using Microsoft.Ajax.Utilities;
 
@@ -77,6 +78,25 @@ namespace CarDealerApp.Service
             }
             vm.Discounts = discounts;
             return vm;
+        }
+
+        public AddSaleConfirmationVM MakeAddSaleConfirmationVm(AddSaleBM sale)
+        {
+            var result = new AddSaleConfirmationVM();
+            var customer = Contex.Customers.Find(int.Parse(sale.Customer));
+            var car = Contex.Cars.Find(int.Parse(sale.Car));
+            var price = car.Parts.Sum(x => x.Price).Value;
+            if (customer.IsYoungDriver)
+            {
+                sale.Discount += 5;
+            }
+            result.Customer = customer.Name;
+            result.Car = car.Make + " " + car.Model;
+            result.Discount = sale.Discount;
+            result.CarPrice = price.ToString();
+            result.FinalPrice = (price * (100 -sale.Discount)/100).ToString();
+
+            return result;
         }
     }
 }

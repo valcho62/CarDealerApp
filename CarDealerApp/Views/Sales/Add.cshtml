@@ -16,24 +16,67 @@
         <h4>Sale</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @{
+            var names = new List<SelectListItem>();
+            foreach (var cust in Model.CustomerVms)
+            {
+                var tempId = cust.Id.ToString();
+                names.Add(new SelectListItem()
+                {
+                    Value = tempId,
+                    Text = cust.Name
+                });
+            }
+            var selectList = new SelectList(names);
+        }
+
         <div class="form-group">
             @Html.Label("Customer: ", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                @Html.DropDownList("Customer", names, "- Please select a Customer -",new { @class = "col-sm-4" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Car: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
                 @{
-                    var names = new List<string>();
-                    foreach (var cust in Model.CustomerVms)
+                    var carNames = new List<SelectListItem>();
+                    foreach (var car in Model.CarVms)
                     {
-                        names.Add(cust.Name);
+                        var tempCarId = car.Id.ToString();
+                        carNames.Add(new SelectListItem()
+                        {
+                            Text = car.Make + " " + car.Model,
+                            Value =tempCarId
+                            });
                     }
-                    var selectList = new SelectList(names);
                    
 
+
                 }
-                @Html.DropDownList("Customer", selectList);
+                @Html.DropDownList("Car", carNames, "- Please select a Car -")
 
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.Label("Discount: ", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-2">
+                @{
+                    var disc = new List<int>();
+                    foreach (var disco in Model.Discounts)
+                    {
+                        disc.Add(disco);
+                    }
+                    selectList = new SelectList(disc);
+
+
+                }
+                @Html.DropDownList("Discount", selectList)
+
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

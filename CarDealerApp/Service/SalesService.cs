@@ -98,5 +98,21 @@ namespace CarDealerApp.Service
 
             return result;
         }
+
+        public void AddSale(AddSaleConfirmationBM sale)
+        {
+            var customer = Contex.Customers.FirstOrDefault(x => x.Name == sale.Customer);
+            var carData = sale.Car.Split();
+            var carMake = carData[0];
+            var carModel = carData[1];
+            var car = Contex.Cars.FirstOrDefault(x => x.Make == carMake && x.Model == carModel);
+            Contex.Sales.Add(new Sale()
+            {
+                Customer = customer,
+                Car = car,
+                Discount = sale.Discount
+            });
+            Contex.SaveChanges();
+        }
     }
 }

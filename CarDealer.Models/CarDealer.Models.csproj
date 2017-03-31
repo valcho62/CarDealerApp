@@ -44,6 +44,7 @@
     <Compile Include="BindingModels\AddCarBM.cs" />
     <Compile Include="BindingModels\AddCustomerBM.cs" />
     <Compile Include="BindingModels\AddSaleBM.cs" />
+    <Compile Include="BindingModels\AddSaleConfirmationBM.cs" />
     <Compile Include="BindingModels\AddUserBM.cs" />
     <Compile Include="BindingModels\EditCustomerBM.cs" />
     <Compile Include="BindingModels\LoginBM.cs" />

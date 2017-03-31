@@ -1,19 +1,29 @@
-﻿@model IEnumerable<CarDealerApp.Models.SuppliersVM>
+﻿@using CarDealerApp.App_Data
+@model IEnumerable<CarDealerApp.Models.SuppliersVM>
 
 @{
     ViewBag.Title = "Filter";
 }
 
 <h2>Filter</h2>
+<p>
+    @Html.ActionLink("New Supplier","Add",null,new {@class = "btn btn-lg btn-info"})
+</p>
 
 
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NumberOfParts)
+        </th>
+        <th>
+            @Html.DisplayName("Action")
         </th>
         <th></th>
     </tr>
@@ -29,6 +39,10 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.NumberOfParts)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
 
     </tr>

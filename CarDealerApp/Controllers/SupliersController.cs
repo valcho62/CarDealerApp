@@ -40,25 +40,15 @@ namespace CarDealerApp.Controllers
         [Route("supliers/{suppType}")]
         public ActionResult Filter(string suppType)
         {
-            var preModel = new List<CarDealer.Models.Supplier>();
-            if (suppType == "Local")
-            {
-                preModel = this.service.Contex.Suppliers.Where(x => x.IsImporter == false).ToList();
-            }                   
-            else                
-            {                   
-                preModel = this.service.Contex.Suppliers.Where(x => x.IsImporter == true).ToList();
-            }
+            var model = this.service.MakeSupplierVM(suppType);
 
-            var model = new List<SuppliersVM>();
-            foreach (var pre in preModel)
-            {
-                var temp = new SuppliersVM();
-                temp.Id = pre.Id;
-                temp.Name = pre.Name;
-                temp.NumberOfParts = pre.Parts.Count;
-                model.Add(temp);
-            }
+            return View(model);
+        }
+        [HttpGet]
+        [Route("supliers/add")]
+        public ActionResult Add(string suppType)
+        {
+            var model = this.service.MakeSupplierVM(suppType);
 
             return View(model);
         }

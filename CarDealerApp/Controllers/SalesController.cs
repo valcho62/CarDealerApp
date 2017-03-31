@@ -63,8 +63,17 @@ namespace CarDealerApp.Controllers
                 return this.View(model);
             }
             return RedirectToAction("Login", "Users");
-           
-           
+        }
+        [HttpPost]
+        [Route("sales/confirmation")]
+        public ActionResult Confirmation([Bind (Include = "Customer,Car,Discount")]AddSaleConfirmationBM model)
+        {
+            if (ModelState.IsValid)
+            {
+                this.service.AddSale(model);
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Confirmation");
         }
     }
 }

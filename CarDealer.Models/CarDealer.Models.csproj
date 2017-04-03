@@ -46,7 +46,9 @@
     <Compile Include="BindingModels\AddSaleBM.cs" />
     <Compile Include="BindingModels\AddSaleConfirmationBM.cs" />
     <Compile Include="BindingModels\AddUserBM.cs" />
+    <Compile Include="BindingModels\DeleteSupplierBM.cs" />
     <Compile Include="BindingModels\EditCustomerBM.cs" />
+    <Compile Include="BindingModels\EditSupplierBM.cs" />
     <Compile Include="BindingModels\LoginBM.cs" />
     <Compile Include="Car.cs" />
     <Compile Include="Customer.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="ViewModels\AddSaleConfirmationVM.cs" />
     <Compile Include="ViewModels\AddSaleCustomerVM.cs" />
     <Compile Include="ViewModels\AddSaleVM.cs" />
+    <Compile Include="ViewModels\AddSupplierVM.cs" />
     <Compile Include="ViewModels\AllSalesVM.cs" />
     <Compile Include="ViewModels\CarsWithPartsVM.cs" />
     <Compile Include="ViewModels\CustomerSalesVM.cs" />

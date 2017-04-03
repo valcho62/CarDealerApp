@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -55,10 +56,25 @@ namespace CarDealerApp.Service
             return result;
         }
 
-        public void AddCar(AddCarBM car)
+        public void AddCar(AddCarBM car,User user)
         {
             var carToAdd = Mapper.Map<AddCarBM, Car>(car);
             Contex.Cars.Add(carToAdd);
+            Contex.SaveChanges();
+            this.AddLog(user,Operation.Add, "Car");
+        }
+        private void AddLog(User user, Operation operation, string modifiedTable)
+        {
+          
+            Log log = new Log()
+            {
+                User = user,
+                DateModified = DateTime.Now,
+                ModifiedTable = modifiedTable,
+                Operation = operation
+            };
+
+            Contex.Logs.Add(log);
             Contex.SaveChanges();
         }
     }

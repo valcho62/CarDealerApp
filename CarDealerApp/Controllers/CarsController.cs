@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using CarDealer.Data;
+using CarDealer.Models;
 using CarDealer.Models.BindingModels;
 using CarDealerApp.Service;
 using Microsoft.Ajax.Utilities;
@@ -52,15 +53,20 @@ namespace CarDealerApp.Controllers
                 return View(); 
             }
             return RedirectToAction("Login","Users");
-   ;     }
+       }
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("cars/add")]
         public ActionResult Add([Bind(Include = "Make,Model,TravelledDistance,Parts")] AddCarBM car)
         {
-            if (ModelState.IsValid)
+            var session = this.Request.Cookies.Get("sessionId");
+
+            if (ModelState.IsValid && AuthenticationManager.IsAuthenticated(session.Value))
             {
-                this.service.AddCar(car);
+                User user = AuthenticationManager.GetAuthenticatedUser(session.Value);
+               
+                ViewBag.User = AuthenticationManager.GetAuthenticatedUser(session.Value);
+                this.service.AddCar(car,user);
                 return RedirectToAction("Index");
             }
             return View();

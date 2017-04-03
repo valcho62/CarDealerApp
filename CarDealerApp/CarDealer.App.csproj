@@ -211,7 +211,9 @@
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Sales\Add.cshtml" />
     <Content Include="Views\Sales\Confirmation.cshtml" />
-    <Content Include="Views\Supliers\AddEdit.cshtml" />
+    <Content Include="Views\Supliers\Add.cshtml" />
+    <Content Include="Views\Supliers\Edit.cshtml" />
+    <Content Include="Views\Supliers\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

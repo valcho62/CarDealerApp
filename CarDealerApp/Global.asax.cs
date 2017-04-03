@@ -42,6 +42,9 @@ namespace CarDealerApp
                     cfg.CreateMap<AddUserBM, User>();
                     cfg.CreateMap<Car, AddSaleCarVM>();
                     cfg.CreateMap<Customer, AddSaleCustomerVM>();
+                    cfg.CreateMap<AddSupplierVM, Supplier>();
+                    cfg.CreateMap<EditSupplierBM, Supplier>();
+
 
                 }
                     );

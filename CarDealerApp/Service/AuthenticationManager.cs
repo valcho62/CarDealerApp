@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using CarDealer.Models;
 using CarDealer.Data;
+using Microsoft.Ajax.Utilities;
 
 namespace CarDealerApp.Service
 {
@@ -13,24 +14,28 @@ namespace CarDealerApp.Service
         private static CarDealerContext context = new CarDealerContext();
         public static bool IsAuthenticated(string sessionId)
         {
+          
             if (context.Sessions.Any(login => login.SessionId == sessionId && login.IsActive))
             {
+                
                 return true;
             }
-
+            
             return false;
         }
 
         public static User GetAuthenticatedUser(string sessionId)
         {
             var firstOrDefault = context.Sessions.FirstOrDefault(login => login.SessionId == sessionId && login.IsActive);
+            
             if (firstOrDefault != null)
             {
                 var authenticatedUser = firstOrDefault.User;
+               
                 if (authenticatedUser != null)
                     return authenticatedUser;
             }
-
+            
             return null;
         }
 
@@ -39,6 +44,7 @@ namespace CarDealerApp.Service
             Session login = context.Sessions.FirstOrDefault(login1 => login1.SessionId == sessioId);
             login.IsActive = false;
             context.SaveChanges();
+           
         }
     }
 }

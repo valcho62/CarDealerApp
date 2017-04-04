@@ -1,9 +1,13 @@
 ﻿
+using System;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using CarDealer.Data;
 using CarDealer.Models;
 using CarDealer.Models.BindingModels;
+using CarDealerApp.App_Data.Filters;
 using CarDealerApp.Service;
 using Microsoft.Ajax.Utilities;
 
@@ -69,6 +73,25 @@ namespace CarDealerApp.Controllers
                 this.service.AddCar(car,user);
                 return RedirectToAction("Index");
             }
+            return View();
+        }
+
+        [HttpGet]
+        [Route("cars/details/{id}")]
+        [HandleError(View = "ArgumentError",ExceptionType = typeof(ArgumentOutOfRangeException))]
+        public ActionResult Details(int id)
+        {
+            var car = this.service.Contex.Cars.Find(id);
+            if (car == null)
+            {
+                throw new ArgumentOutOfRangeException(
+                    "id",id, $"There is no such car.");
+            }
+            else if (car.TravelledDistance > 1000000)
+            {
+                throw new InvalidOperationException("This car is too old");
+            }
+            ViewData["car"] = car;
             return View();
         }
     }

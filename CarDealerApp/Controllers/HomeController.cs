@@ -10,6 +10,7 @@ namespace CarDealerApp.Controllers
     {
         public ActionResult Index()
         {
+           
             return View();
         }
 

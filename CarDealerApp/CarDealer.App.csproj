@@ -129,6 +129,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Data\Filters\LogAttribute.cs" />
     <Compile Include="App_Data\HtmlButtonExtension.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogsController.cs" />
     <Compile Include="Controllers\PartsController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\SupliersController.cs" />
@@ -147,6 +149,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\AuthenticationManager.cs" />
     <Compile Include="Service\CarsService.cs" />
+    <Compile Include="Service\LogsService.cs" />
     <Compile Include="Service\PartsService.cs" />
     <Compile Include="Service\Service.cs" />
     <Compile Include="Service\CustomerService.cs" />
@@ -214,6 +217,9 @@
     <Content Include="Views\Supliers\Add.cshtml" />
     <Content Include="Views\Supliers\Edit.cshtml" />
     <Content Include="Views\Supliers\Delete.cshtml" />
+    <Content Include="Views\Logs\Index.cshtml" />
+    <Content Include="Views\Shared\AnotherError.cshtml" />
+    <Content Include="Views\Shared\ArgumentError.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

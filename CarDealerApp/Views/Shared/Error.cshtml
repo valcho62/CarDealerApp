@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+@model HandleErrorInfo
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -8,6 +9,7 @@
     <hgroup>
         <h1>Error.</h1>
         <h2>An error occurred while processing your request.</h2>
+        <h2>The error message is : @Model.Exception.Message come from @Model.ControllerName</h2>
     </hgroup>
 </body>
 </html>

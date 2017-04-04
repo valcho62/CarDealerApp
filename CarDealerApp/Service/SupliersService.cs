@@ -41,27 +41,28 @@ namespace CarDealerApp.Service
             return model;
         }
 
-        public void AddSupplier(AddSupplierVM supplier,User user)
+        public void AddSupplier(AddSupplierVM supplier,int userId)
         {
             var newSupp = Mapper.Map<Supplier>(supplier);
             Contex.Suppliers.Add(newSupp);
             Contex.SaveChanges();
-            this.AddLog(user, Operation.Add);
+            this.AddLog(userId, Operation.Add);
         }
 
-        public void EditSupplier(EditSupplierBM model,User user)
+        public void EditSupplier(EditSupplierBM model,int userId)
         {
             var supplier = Mapper.Map<Supplier>(model);
             Contex.Entry(supplier).State = EntityState.Modified;
             Contex.SaveChanges();
-            this.AddLog(user,Operation.Edit);
+           
+            this.AddLog(userId,Operation.Edit);
         }
-        public void AddLog(User user,Operation operation)
+        public void AddLog(int userId,Operation operation)
         {
-            
+            User user = Contex.Users.Find(userId);
             Log log = new Log()
             {
-                User = user,
+               User = user,
                 DateModified = DateTime.Now,
                 ModifiedTable = "Suppliers",
                 Operation = operation

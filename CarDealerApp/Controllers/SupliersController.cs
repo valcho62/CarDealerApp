@@ -61,7 +61,7 @@ namespace CarDealerApp.Controllers
                 User loggedUser = AuthenticationManager.GetAuthenticatedUser(session.Value);
                 if (ModelState.IsValid && AuthenticationManager.IsAuthenticated(session.Value))
             {
-               this.service.AddSupplier(supplier,loggedUser);
+               this.service.AddSupplier(supplier,loggedUser.Id);
                 return RedirectToAction("Index");
             }
 
@@ -85,7 +85,7 @@ namespace CarDealerApp.Controllers
              if (ModelState.IsValid && AuthenticationManager.IsAuthenticated(session.Value))
              {
                  User loggedUser = AuthenticationManager.GetAuthenticatedUser(session.Value);
-                this.service.EditSupplier(model,loggedUser);
+                this.service.EditSupplier(model,loggedUser.Id);
                 return RedirectToAction("Index");
    ;         }
             return View(model);
@@ -107,11 +107,11 @@ namespace CarDealerApp.Controllers
 
             if (ModelState.IsValid && AuthenticationManager.IsAuthenticated(session.Value))
             {
-                User user = AuthenticationManager.GetAuthenticatedUser(session.Value);
+                User loggedUser = AuthenticationManager.GetAuthenticatedUser(session.Value);
                 var supplier = this.service.Contex.Suppliers.Find(model.Id);
                 this.service.Contex.Suppliers.Remove(supplier);
                 this.service.Contex.SaveChanges();
-                this.service.AddLog(user,Operation.Delete);
+                this.service.AddLog(loggedUser.Id,Operation.Delete);
                
             }
             return RedirectToAction("Index");

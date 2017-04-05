@@ -10,6 +10,7 @@ using AutoMapper;
 using CarDealer.Data;
 using CarDealer.Models;
 using CarDealer.Models.BindingModels;
+using CarDealerApp.App_Data.Filters;
 using CarDealerApp.Service;
 
 namespace CarDealerApp.Controllers
@@ -26,6 +27,7 @@ namespace CarDealerApp.Controllers
         // GET: Customers
         [Route("customers/all")]
         [Route("customers/all/{id}")]
+        [Timer]
         public ActionResult All(string id)
         {
             return View(this.service.MakeAll(id));

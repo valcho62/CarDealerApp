@@ -130,9 +130,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Data\Filters\LogAttribute.cs" />
+    <Compile Include="App_Data\Filters\TimerAttribute.cs" />
     <Compile Include="App_Data\HtmlButtonExtension.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Data\HtmlYoutubeExtension.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CarsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
@@ -156,6 +158,7 @@
     <Compile Include="Service\SalesService.cs" />
     <Compile Include="Service\SupliersService.cs" />
     <Compile Include="Service\UsersService.cs" />
+    <Compile Include="App_Data\HtmlImageExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -220,6 +223,7 @@
     <Content Include="Views\Logs\Index.cshtml" />
     <Content Include="Views\Shared\AnotherError.cshtml" />
     <Content Include="Views\Shared\ArgumentError.cshtml" />
+    <Content Include="Views\Logs\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

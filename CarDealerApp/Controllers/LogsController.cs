@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CarDealer.Models;
 using CarDealerApp.Service;
 
 namespace CarDealerApp.Controllers
@@ -31,6 +32,12 @@ namespace CarDealerApp.Controllers
         // GET: Logs/Create
         public ActionResult Create()
         {
+            ViewBag.People = new List<User>
+            {
+                new User() {Email = "qweqe@asdads",Username = "kibik",Password = "56757"}, 
+                new User() {Email = "xzc@asdads",Username = "kibik123",Password = "hjk"},
+                new User() {Email = "1231@asdads",Username = "kibik5675",Password = "89080"},
+            };
             return View();
         }
 

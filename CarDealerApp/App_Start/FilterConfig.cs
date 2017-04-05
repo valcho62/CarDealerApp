@@ -12,7 +12,7 @@ namespace CarDealerApp
             {
                 View = "AnotherError"
             });
-            filters.Add(new LogAttribute());
+            //filters.Add(new LogAttribute());
         }
     }
 }

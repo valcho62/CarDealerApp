@@ -13,6 +13,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace CarDealerApp.Controllers
 {
+    [Log]
     public class CarsController : Controller
     {
         private CarsService service;
@@ -27,6 +28,7 @@ namespace CarDealerApp.Controllers
         [Route("cars")]
         public ActionResult Index(string id)
         {
+            throw new ArgumentException("Ala bala nica");
             return View(this.service.MakeIndexList(id));
         }
         [HttpGet]
